@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e:*)",
+      "Bash(pnpm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "Bash(rm:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git status:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(test:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(npx tsc:*)",
+      "Bash(dir /b /s \"c:\\Users\\sri shahithya t\\OneDrive\\Desktop\\isoo\\isomorphic v7.6.2 - React admin dashboard template\\isomorphic\\apps\\isomorphic\\src\\app\\(hydrogen)\\edu\\module\")",
+      "Bash(dir:*)",
+      "Bash(nul)",
+      "Bash(pnpm add:*)",
+      "Bash(curl:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(npm start)",
+      "Bash(timeout:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

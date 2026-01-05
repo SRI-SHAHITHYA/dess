@@ -1,0 +1,48 @@
+{
+  "cSpell.words": [
+    "atrisk",
+    "clsx",
+    "countup",
+    "datepicker",
+    "dont",
+    "Dropload",
+    "ecommerce",
+    "furyroad",
+    "googlemaps",
+    "Grammarly",
+    "Hazrat",
+    "headlessui",
+    "heroicons",
+    "hookform",
+    "Hubsport",
+    "hubspot",
+    "languagedetector",
+    "Lngs",
+    "NEXTAUTH",
+    "nextjs",
+    "paralleldrive",
+    "qrcode",
+    "rizzui",
+    "semibold",
+    "Shahjalal",
+    "simplebar",
+    "swappable",
+    "swapy",
+    "swiper",
+    "tailwindcss",
+    "tanstack",
+    "toploader",
+    "Tripfinder",
+    "uploadthing",
+    "Vanleuven",
+    "webp",
+    "worldmap"
+  ],
+  "python-envs.pythonProjects": [
+    {
+      "path": "apps/isomorphic/src/app/(hydrogen)/edu/module/[id]",
+      "envManager": "ms-python.python:venv",
+      "packageManager": "ms-python.python:pip"
+    }
+  ]
+}
