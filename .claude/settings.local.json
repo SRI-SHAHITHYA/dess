@@ -1,0 +1,30 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd:*)",
+      "Bash(tree:*)",
+      "Bash(npm install:*)",
+      "Bash(for file in EditModulePage.jsx AddSubmodulePage.jsx EditSubmodulePage.jsx AddTopicPage.jsx EditTopicPage.jsx)",
+      "Bash(do:*)",
+      "Bash(done)",
+      "Bash(mkdir:*)",
+      "Bash(npm run build:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm dev)",
+      "Bash(npm start)",
+      "Bash(timeout /t 3)",
+      "Bash(nul)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(cmd //c taskkill //PID 20636 //F)",
+      "Bash(cmd //c taskkill //PID 55156 //F)",
+      "Bash(timeout /t 2)",
+      "Bash(curl:*)",
+      "Bash(timeout:*)",
+      "Bash(cmd //c taskkill //PID 52112 //PID 44952 //PID 33444 //F)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
