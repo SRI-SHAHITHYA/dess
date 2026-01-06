@@ -34,20 +34,40 @@ export const getTopicsByModule = async (req, res, next) => {
   }
 };
 
+// Get topics by category (NEW - for standalone categories without modules)
+export const getTopicsByCategory = async (req, res, next) => {
+  try {
+    const { categoryId } = req.params;
+    const { data, error } = await supabase
+      .from('topics')
+      .select('*')
+      .eq('category_id', categoryId)
+      .is('deleted_at', null);
+
+    if (error) throw error;
+    res.json(data);
+  } catch (err) {
+    next(new AppError(err.message, 500));
+  }
+};
+
 export const createTopic = async (req, res, next) => {
   try {
-    const { submoduleId, moduleId, name, content, image_url } = req.body;
+    const { submoduleId, moduleId, categoryId, name, content, image_url } = req.body;
 
-    // Validate that either submoduleId or moduleId is provided (not both)
-    if ((submoduleId && moduleId) || (!submoduleId && !moduleId)) {
-      return next(new AppError('Provide either submoduleId or moduleId, not both', 400));
+    // Validate that exactly ONE of: submoduleId, moduleId, or categoryId is provided
+    const provided = [submoduleId, moduleId, categoryId].filter(Boolean);
+    if (provided.length !== 1) {
+      return next(new AppError('Provide exactly one of: submoduleId, moduleId, or categoryId', 400));
     }
 
     const insertData = {
       name,
       content,
       image_url: image_url || null,
-      ...(submoduleId ? { submodule_id: submoduleId } : { module_id: moduleId })
+      ...(submoduleId && { submodule_id: submoduleId }),
+      ...(moduleId && { module_id: moduleId }),
+      ...(categoryId && { category_id: categoryId })
     };
 
     const { data, error } = await supabase

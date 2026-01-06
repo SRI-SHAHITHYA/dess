@@ -12,6 +12,7 @@ export interface Topic {
 }
 
 export interface CreateTopicInput {
+  categoryId?: number;  // NEW - for standalone categories
   moduleId?: number;
   submoduleId?: number;
   name: string;
@@ -90,10 +91,22 @@ export const topicService = {
     }
   },
 
+  // Get all topics for a category (NEW - for standalone categories, direct topics)
+  async getByCategoryId(categoryId: number) {
+    try {
+      const response = await apiClient.get<ApiResponse<Topic[]>>(`/api/topics/category/${categoryId}`);
+      const topics = response.data || response;
+      return Array.isArray(topics) ? topics.map(transformTopic) : [];
+    } catch (error) {
+      console.error(`Failed to fetch topics for category ${categoryId}:`, error);
+      throw error;
+    }
+  },
+
   // Get all topics for a module
   async getByModuleId(moduleId: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Topic[]>>(`/topics/module/${moduleId}`);
+      const response = await apiClient.get<ApiResponse<Topic[]>>(`/api/topics/module/${moduleId}`);
       const topics = response.data || response;
       return Array.isArray(topics) ? topics.map(transformTopic) : [];
     } catch (error) {
@@ -105,7 +118,7 @@ export const topicService = {
   // Get all topics for a submodule
   async getBySubmoduleId(submoduleId: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Topic[]>>(`/topics/${submoduleId}`);
+      const response = await apiClient.get<ApiResponse<Topic[]>>(`/api/topics/${submoduleId}`);
       const topics = response.data || response;
       return Array.isArray(topics) ? topics.map(transformTopic) : [];
     } catch (error) {
@@ -117,7 +130,7 @@ export const topicService = {
   // Get single topic by ID
   async getById(id: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Topic>>(`/topics/${id}`);
+      const response = await apiClient.get<ApiResponse<Topic>>(`/api/topics/${id}`);
       const topic = response.data || response;
       return transformTopic(topic as Topic);
     } catch (error) {
@@ -129,15 +142,16 @@ export const topicService = {
   // Create new topic
   async create(data: CreateTopicInput) {
     try {
-      // Backend expects moduleId/submoduleId (camelCase)
+      // Backend expects categoryId/moduleId/submoduleId (camelCase)
       const payload = {
+        categoryId: data.categoryId,  // NEW - for standalone categories
         moduleId: data.moduleId,
         submoduleId: data.submoduleId,
         name: data.name,
         content: data.content || '',
         image_url: data.image_url,
       };
-      const response = await apiClient.post<ApiResponse<Topic>>('/topics', payload);
+      const response = await apiClient.post<ApiResponse<Topic>>('/api/topics', payload);
       const topic = response.data || response;
       return transformTopic(topic as Topic);
     } catch (error) {
@@ -149,7 +163,7 @@ export const topicService = {
   // Update existing topic
   async update(id: number, data: UpdateTopicInput) {
     try {
-      const response = await apiClient.put<ApiResponse<Topic>>(`/topics/${id}`, data);
+      const response = await apiClient.put<ApiResponse<Topic>>(`/api/topics/${id}`, data);
       const topic = response.data || response;
       return transformTopic(topic as Topic);
     } catch (error) {
@@ -161,7 +175,7 @@ export const topicService = {
   // Delete topic
   async delete(id: number) {
     try {
-      await apiClient.delete(`/topics/${id}`);
+      await apiClient.delete(`/api/topics/${id}`);
       return true;
     } catch (error) {
       console.error(`Failed to delete topic ${id}:`, error);

@@ -160,27 +160,27 @@ export const invalidateCategoryCache = () => {
 
 export const getCategories = async () => {
   // Add cache version to bypass stale browser cache
-  const res = await axios.get(`${BASE_URL}/categories?v=${categoryCacheVersion}`);
+  const res = await axios.get(`${BASE_URL}/api/categories?v=${categoryCacheVersion}`);
   return res.data;
 };
 
 export const createCategory = async (category) => {
   await getCSRFToken();
-  const res = await axios.post(`${BASE_URL}/categories`, category);
+  const res = await axios.post(`${BASE_URL}/api/categories`, category);
   invalidateCategoryCache(); // Invalidate cache after creating
   return res.data;
 };
 
 export const updateCategory = async (id, updates) => {
   await getCSRFToken();
-  const res = await axios.put(`${BASE_URL}/categories/${id}`, updates);
+  const res = await axios.put(`${BASE_URL}/api/categories/${id}`, updates);
   invalidateCategoryCache(); // Invalidate cache after updating
   return res.data;
 };
 
 export const deleteCategory = async (id) => {
   await getCSRFToken();
-  const res = await axios.delete(`${BASE_URL}/categories/${id}`);
+  const res = await axios.delete(`${BASE_URL}/api/categories/${id}`);
   invalidateCategoryCache(); // Invalidate cache after deleting
   return res.data;
 };

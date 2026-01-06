@@ -40,7 +40,7 @@ export const submoduleService = {
   // Get all submodules (for dropdowns, etc.)
   async getAll() {
     try {
-      const response = await apiClient.get<ApiResponse<Submodule[]>>('/submodules');
+      const response = await apiClient.get<ApiResponse<Submodule[]>>('/api/submodules');
       const submodules = response.data || response;
       return Array.isArray(submodules) ? submodules.map(transformSubmodule) : [];
     } catch (error) {
@@ -52,7 +52,7 @@ export const submoduleService = {
   // Get all submodules for a category
   async getByCategoryId(categoryId: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Submodule[]>>(`/submodules/category/${categoryId}`);
+      const response = await apiClient.get<ApiResponse<Submodule[]>>(`/api/submodules/category/${categoryId}`);
       const submodules = response.data || response;
       return Array.isArray(submodules) ? submodules.map(transformSubmodule) : [];
     } catch (error) {
@@ -64,7 +64,7 @@ export const submoduleService = {
   // Get single submodule by ID
   async getById(id: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Submodule>>(`/submodules/${id}`);
+      const response = await apiClient.get<ApiResponse<Submodule>>(`/api/submodules/${id}`);
       const submodule = response.data || response;
       return transformSubmodule(submodule as Submodule);
     } catch (error) {
@@ -76,7 +76,7 @@ export const submoduleService = {
   // Create new submodule
   async create(data: CreateSubmoduleInput) {
     try {
-      const response = await apiClient.post<ApiResponse<Submodule>>('/submodules', data);
+      const response = await apiClient.post<ApiResponse<Submodule>>('/api/submodules', data);
       const submodule = response.data || response;
       return transformSubmodule(submodule as Submodule);
     } catch (error) {
@@ -88,7 +88,7 @@ export const submoduleService = {
   // Update existing submodule
   async update(id: number, data: UpdateSubmoduleInput) {
     try {
-      const response = await apiClient.put<ApiResponse<Submodule>>(`/submodules/${id}`, data);
+      const response = await apiClient.put<ApiResponse<Submodule>>(`/api/submodules/${id}`, data);
       const submodule = response.data || response;
       return transformSubmodule(submodule as Submodule);
     } catch (error) {
@@ -100,7 +100,7 @@ export const submoduleService = {
   // Delete submodule
   async delete(id: number) {
     try {
-      await apiClient.delete(`/submodules/${id}`);
+      await apiClient.delete(`/api/submodules/${id}`);
       return true;
     } catch (error) {
       console.error(`Failed to delete submodule ${id}:`, error);

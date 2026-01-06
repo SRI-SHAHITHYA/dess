@@ -71,7 +71,7 @@ export const moduleService = {
   // Get all modules for a category
   async getByCategoryId(categoryId: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Module[]>>(`/modules/${categoryId}`);
+      const response = await apiClient.get<ApiResponse<Module[]>>(`/api/modules/${categoryId}`);
       const modules = response.data || response;
       return Array.isArray(modules) ? modules.map(transformModule) : [];
     } catch (error) {
@@ -83,7 +83,7 @@ export const moduleService = {
   // Get single module by ID
   async getById(id: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Module>>(`/modules/${id}`);
+      const response = await apiClient.get<ApiResponse<Module>>(`/api/modules/${id}`);
       const module = response.data || response;
       return transformModule(module as Module);
     } catch (error) {
@@ -102,7 +102,7 @@ export const moduleService = {
         description: data.description,
         image_url: data.image_url,
       };
-      const response = await apiClient.post<ApiResponse<Module>>('/modules', payload);
+      const response = await apiClient.post<ApiResponse<Module>>('/api/modules', payload);
       const module = response.data || response;
       return transformModule(module as Module);
     } catch (error) {
@@ -114,7 +114,7 @@ export const moduleService = {
   // Update existing module
   async update(id: number, data: UpdateModuleInput) {
     try {
-      const response = await apiClient.put<ApiResponse<Module>>(`/modules/${id}`, data);
+      const response = await apiClient.put<ApiResponse<Module>>(`/api/modules/${id}`, data);
       const module = response.data || response;
       return transformModule(module as Module);
     } catch (error) {
@@ -126,7 +126,7 @@ export const moduleService = {
   // Delete module
   async delete(id: number) {
     try {
-      await apiClient.delete(`/modules/${id}`);
+      await apiClient.delete(`/api/modules/${id}`);
       return true;
     } catch (error) {
       console.error(`Failed to delete module ${id}:`, error);

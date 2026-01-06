@@ -48,7 +48,7 @@ export const categoryService = {
   // Get all categories
   async getAll() {
     try {
-      const response = await apiClient.get<ApiResponse<Category[]>>('/categories');
+      const response = await apiClient.get<ApiResponse<Category[]>>('/api/categories');
       const categories = response.data || response;
       return Array.isArray(categories) ? categories.map(transformCategory) : [];
     } catch (error) {
@@ -60,7 +60,7 @@ export const categoryService = {
   // Get single category by ID
   async getById(id: number) {
     try {
-      const response = await apiClient.get<ApiResponse<Category>>(`/categories/${id}`);
+      const response = await apiClient.get<ApiResponse<Category>>(`/api/categories/${id}`);
       const category = response.data || response;
       return transformCategory(category as Category);
     } catch (error) {
@@ -77,7 +77,7 @@ export const categoryService = {
         type: transformTypeForBackend(data.type),
         status: data.status || 'draft',
       };
-      const response = await apiClient.post<ApiResponse<Category>>('/categories', payload);
+      const response = await apiClient.post<ApiResponse<Category>>('/api/categories', payload);
       const category = response.data || response;
       return transformCategory(category as Category);
     } catch (error) {
@@ -93,7 +93,7 @@ export const categoryService = {
         ...data,
         ...(data.type && { type: transformTypeForBackend(data.type) }),
       };
-      const response = await apiClient.put<ApiResponse<Category>>(`/categories/${id}`, payload);
+      const response = await apiClient.put<ApiResponse<Category>>(`/api/categories/${id}`, payload);
       const category = response.data || response;
       return transformCategory(category as Category);
     } catch (error) {
@@ -105,7 +105,7 @@ export const categoryService = {
   // Delete category
   async delete(id: number) {
     try {
-      await apiClient.delete(`/categories/${id}`);
+      await apiClient.delete(`/api/categories/${id}`);
       return true;
     } catch (error) {
       console.error(`Failed to delete category ${id}:`, error);
